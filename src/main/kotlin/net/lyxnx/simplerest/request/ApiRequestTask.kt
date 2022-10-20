@@ -1,6 +1,5 @@
 package net.lyxnx.simplerest.request
 
-import io.reactivex.rxjava3.core.Observable
 import net.lyxnx.simplerest.ApiInterface
 import net.lyxnx.simplerest.RestSingletons
 
@@ -13,13 +12,13 @@ abstract class ApiRequestTask<T : Any, A : ApiInterface> : RequestTask<T>() {
 
     private val api = RestSingletons.getApi<A>()
 
-    override fun buildObservable(): Observable<T> {
-        return buildObservable(api)
+    override suspend fun getResponse(): T {
+        return getResponse(api)
     }
 
     /**
-     * Builds the observable with the given API instance
+     * Gets the response with the given API instance
      */
-    protected abstract fun buildObservable(api: A): Observable<T>
+    protected abstract suspend fun getResponse(api: A): T
 
 }

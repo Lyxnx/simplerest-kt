@@ -4,10 +4,8 @@ import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import io.reactivex.rxjava3.core.Observable
 
 /**
  * Build an API using Kotlin's DSL format.
@@ -32,12 +30,6 @@ class ApiBuilder {
             .readTimeout(60, TimeUnit.SECONDS)
             .callTimeout(60, TimeUnit.SECONDS)
             .build()
-
-        /**
-         * Default call adapter factory which uses RxJava for its [Observable]s
-         */
-        val DEFAULT_CALL_ADAPTER_FACTORY: CallAdapter.Factory =
-            RxJava3CallAdapterFactory.create()
 
         /**
          * Default response converter factory which uses Gson for JSON response parsing
@@ -84,10 +76,6 @@ class ApiBuilder {
 
     /**
      * Sets the converter factory for response bodies
-     *
-     * This is not required unless a different converter factory is required from default
-     *
-     * See [DEFAULT_CONVERTER_FACTORY]
      */
     fun converterFactory(factory: Converter.Factory) {
         converterFactory = factory
@@ -98,12 +86,13 @@ class ApiBuilder {
      *
      * * [baseUrl] must have been set
      * * If [client] has not been configured, [DEFAULT_CLIENT] will be used
-     * * If [callAdapterFactory] has not been called, [DEFAULT_CALL_ADAPTER_FACTORY] will be used
      * * If [converterFactory] has not been called, [DEFAULT_CONVERTER_FACTORY] will be used
      */
     fun <T : ApiInterface> build(clazz: Class<T>): T {
         builder.client(client ?: DEFAULT_CLIENT)
-        builder.addCallAdapterFactory(callAdapterFactory ?: DEFAULT_CALL_ADAPTER_FACTORY)
+        callAdapterFactory?.let {
+            builder.addCallAdapterFactory(it)
+        }
         builder.addConverterFactory(converterFactory ?: DEFAULT_CONVERTER_FACTORY)
 
         return builder.build().create(clazz)

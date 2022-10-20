@@ -1,7 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     id("java")
@@ -11,21 +9,18 @@ plugins {
 }
 
 group = "net.lyxnx"
-version = "2.0.3"
+version = "2.1.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("io.reactivex.rxjava3:rxjava:3.1.5")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
 
     implementation("com.google.code.gson:gson:2.9.0")
-
-    testImplementation(kotlin("test"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 
 tasks {
@@ -42,50 +37,9 @@ tasks {
     }
 
     build {
-        dependsOn(test)
         dependsOn(shadowJar)
     }
 
-    test {
-        useJUnitPlatform()
-
-        testLogging {
-            events(
-                TestLogEvent.FAILED,
-                TestLogEvent.PASSED,
-                TestLogEvent.SKIPPED,
-                TestLogEvent.STANDARD_OUT
-            )
-            exceptionFormat = TestExceptionFormat.FULL
-            showExceptions = true
-            showCauses = true
-            showStackTraces = true
-
-            debug {
-                events(
-                    TestLogEvent.STARTED,
-                    TestLogEvent.FAILED,
-                    TestLogEvent.PASSED,
-                    TestLogEvent.SKIPPED,
-                    TestLogEvent.STANDARD_ERROR,
-                    TestLogEvent.STANDARD_OUT
-                )
-                exceptionFormat = TestExceptionFormat.FULL
-            }
-            info.events = debug.events
-            info.exceptionFormat = debug.exceptionFormat
-
-            afterSuite(KotlinClosure2<TestDescriptor, TestResult, Unit>({ desc, result ->
-                if (desc.parent != null) {
-                    val output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} passed, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)"
-                    val startItem = "|  "
-                    val endItem = "  |"
-                    val repeatLength = startItem.length + output.length + endItem.length
-                    println("\n${"-".repeat(repeatLength)}\n$startItem$output$endItem\n${"-".repeat(repeatLength)}")
-                }
-            }))
-        }
-    }
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
