@@ -9,6 +9,7 @@ sealed class Response<out T> {
     companion object {
         fun <T> success(data: T) = Success(data)
         fun error(throwable: Throwable) = Error(throwable)
+        fun error(message: String) = Error(Exception(message))
         fun loading() = Loading
     }
 
@@ -26,9 +27,14 @@ sealed class Response<out T> {
         else -> null
     }
 
+    fun get(): T = getOrNull() ?: throw IllegalStateException("Response type is not success")
+
     fun throwableOrNull(): Throwable? = when (this) {
         is Error -> this.throwable
         else -> null
     }
+
+    fun throwable(): Throwable =
+        throwableOrNull() ?: throw IllegalStateException("Response type is not failure")
 
 }
