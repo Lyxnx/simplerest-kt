@@ -1,14 +1,14 @@
 package net.lyxnx.simplerest.request
 
 /**
- * Represents a request task that returns some data
+ * Represents a request task that might return some data
  * @param T type of data to return
  */
 abstract class RequestTask<T> {
 
     /**
-     * Gets the response from this request
+     * Executes this request and returns the response data (if any)
      */
-    abstract suspend fun getResponse(): T
+    abstract suspend fun execute(): T
 
 }

@@ -12,3 +12,18 @@ interface ApiProvider<A : ApiInterface> {
     fun build(): A
 
 }
+
+// Require the receiver parameter otherwise the generics look ugly
+@Suppress("UnusedReceiverParameter")
+/**
+ * Send and executes the request specified in [block]
+ *
+ * If [SimpleRest.init] has not been called, this will throw an [IllegalStateException]
+ */
+suspend fun <A : ApiInterface, R> ApiProvider<A>.sendRequest(block: suspend A.() -> R): R {
+    try {
+        return block(SimpleRest.api())
+    } catch (_: IllegalStateException) {
+        throw IllegalStateException("SimpleRest api must be initialized with init() first")
+    }
+}

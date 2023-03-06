@@ -1,12 +1,17 @@
 package net.lyxnx.simplerest.example
 
 import net.lyxnx.simplerest.ApiInterface
+import net.lyxnx.simplerest.example.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface ExampleApiInterface : ApiInterface {
 
-    @GET("/test")
-    suspend fun callTest(@Body testString: String): Int
+    @GET("/user")
+    suspend fun getUser(): User
+
+    @POST("/user")
+    suspend fun postUser(@Body user: User)
 
 }

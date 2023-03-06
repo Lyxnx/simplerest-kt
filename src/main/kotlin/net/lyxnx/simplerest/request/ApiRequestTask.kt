@@ -1,7 +1,7 @@
 package net.lyxnx.simplerest.request
 
 import net.lyxnx.simplerest.ApiInterface
-import net.lyxnx.simplerest.RestSingletons
+import net.lyxnx.simplerest.SimpleRest
 
 /**
  * Represents an API request task
@@ -10,15 +10,15 @@ import net.lyxnx.simplerest.RestSingletons
  */
 abstract class ApiRequestTask<T : Any, A : ApiInterface> : RequestTask<T>() {
 
-    private val api = RestSingletons.getApi<A>()
+    private val api = SimpleRest.api<A>()
 
-    override suspend fun getResponse(): T {
-        return getResponse(api)
+    override suspend fun execute(): T {
+        return execute(api)
     }
 
     /**
      * Gets the response with the given API instance
      */
-    protected abstract suspend fun getResponse(api: A): T
+    protected abstract suspend fun execute(api: A): T
 
 }
