@@ -2,30 +2,31 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("java")
-    kotlin("jvm") version "1.7.10"
+    java
+    kotlin("jvm") version "1.8.10"
     `maven-publish`
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.0"
 }
 
 group = "net.lyxnx"
-version = "2.1.1"
-
-repositories {
-    mavenCentral()
-}
+version = "2.1.3"
 
 dependencies {
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
 
-    implementation("com.google.code.gson:gson:2.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation(libs.gson)
+    implementation(libs.kotlinx.coroutines)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 tasks {
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     named<ShadowJar>("shadowJar") {
@@ -49,21 +50,17 @@ val sourcesJar by tasks.registering(Jar::class) {
 
 publishing {
     publications {
-        register("mavenJava", MavenPublication::class.java) {
+        register<MavenPublication>("gpr") {
             from(components["java"])
             artifact(tasks["sourcesJar"])
         }
     }
     repositories {
         maven {
-            url = uri("https://gitlab.com/api/v4/projects/23209058/packages/maven")
-            credentials(HttpHeaderCredentials::class.java) {
-                val gitlabKey: String by project
-                name = "Private-Token"
-                value = gitlabKey
-            }
-            authentication {
-                create<HttpHeaderAuthentication>("header")
+            url = uri("https://maven.pkg.github.com/Lyxnx/simplerest-kt")
+            credentials {
+                username = project.property("gpr.username") as? String ?: System.getenv("USERNAME")
+                password = project.property("gpr.token") as? String ?: System.getenv("TOKEN")
             }
         }
     }
