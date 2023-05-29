@@ -1,0 +1,3 @@
+[submodule "android-gradle-catalogs"]
+	path = android-gradle-catalogs
+	url = git@github.com:Lyxnx/android-gradle-catalogs.git

@@ -3,4 +3,4 @@ package net.lyxnx.simplerest
 /**
  * Represents an API interface responsible for making API calls, whether through retrofit or another means
  */
-interface ApiInterface
+public interface ApiInterface

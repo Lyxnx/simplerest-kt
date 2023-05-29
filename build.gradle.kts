@@ -1,22 +1,22 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.redmadrobot.build.dsl.githubPackages
+import com.redmadrobot.build.dsl.mit
+import com.redmadrobot.build.dsl.setGitHubProject
 
 plugins {
-    java
-    kotlin("jvm") version "1.8.10"
-    `maven-publish`
-    id("com.github.johnrengelman.shadow") version "8.1.0"
+    alias(common.plugins.kotlin.jvm)
+    alias(common.plugins.redmadrobot.kotlin.library)
+    alias(common.plugins.redmadrobot.publish)
 }
 
 group = "net.lyxnx"
-version = "2.1.3"
+version = "2.1.4"
 
 dependencies {
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
+    api(common.retrofit)
+    api(common.retrofit.converter.gson)
 
-    implementation(libs.gson)
-    implementation(libs.kotlinx.coroutines)
+    api(common.gson)
+    api(common.kotlinx.coroutines.core)
 }
 
 java {
@@ -24,44 +24,20 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-tasks {
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
+redmadrobot {
+    publishing {
+        pom {
+            setGitHubProject("Lyxnx/simplerest-kt")
+
+            licenses {
+                mit()
+            }
+        }
     }
-
-    named<ShadowJar>("shadowJar") {
-        archiveFileName.set("${project.name}.jar")
-
-        exclude("net/lyxnx/simplerest/example")
-
-        minimize()
-    }
-
-    build {
-        dependsOn(shadowJar)
-    }
-
-}
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(sourceSets.main.get().allSource)
 }
 
 publishing {
-    publications {
-        register<MavenPublication>("gpr") {
-            from(components["java"])
-            artifact(tasks["sourcesJar"])
-        }
-    }
     repositories {
-        maven {
-            url = uri("https://maven.pkg.github.com/Lyxnx/simplerest-kt")
-            credentials {
-                username = project.property("gpr.username") as? String ?: System.getenv("USERNAME")
-                password = project.property("gpr.token") as? String ?: System.getenv("TOKEN")
-            }
-        }
+        githubPackages("Lyxnx/simplerest-kt")
     }
 }

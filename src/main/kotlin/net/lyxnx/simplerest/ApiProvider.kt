@@ -4,12 +4,12 @@ package net.lyxnx.simplerest
  * Represents a provider of an [ApiInterface]
  * @param A type of API interface
  */
-interface ApiProvider<A : ApiInterface> {
+public interface ApiProvider<A : ApiInterface> {
 
     /**
      * Create the API interface using retrofit or another HTTP API
      */
-    fun build(): A
+    public fun build(): A
 
 }
 
@@ -20,7 +20,7 @@ interface ApiProvider<A : ApiInterface> {
  *
  * If [SimpleRest.init] has not been called, this will throw an [IllegalStateException]
  */
-suspend fun <A : ApiInterface, R> ApiProvider<A>.sendRequest(block: suspend A.() -> R): R {
+public suspend fun <A : ApiInterface, R> ApiProvider<A>.sendRequest(block: suspend A.() -> R): R {
     try {
         return block(SimpleRest.api())
     } catch (_: IllegalStateException) {

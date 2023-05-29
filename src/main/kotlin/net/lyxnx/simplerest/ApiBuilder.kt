@@ -12,21 +12,21 @@ import java.util.concurrent.TimeUnit
  *
  * This will use Retrofit
  */
-inline fun <reified T : ApiInterface> buildApi(block: ApiBuilder.() -> Unit): T {
+public inline fun <reified T : ApiInterface> buildApi(block: ApiBuilder.() -> Unit): T {
     return ApiBuilder().apply(block).build(T::class.java)
 }
 
 @DslMarker
-annotation class ApiBuilderDsl
+internal annotation class ApiBuilderDsl
 
 @ApiBuilderDsl
-class ApiBuilder {
+public class ApiBuilder {
 
-    companion object {
+    public companion object {
         /**
          * Default client with simple read and call timeouts set to 60 seconds
          */
-        val DEFAULT_CLIENT: OkHttpClient = OkHttpClient.Builder()
+        public val DEFAULT_CLIENT: OkHttpClient = OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .callTimeout(60, TimeUnit.SECONDS)
             .build()
@@ -34,7 +34,7 @@ class ApiBuilder {
         /**
          * Default response converter factory which uses Gson for JSON response parsing
          */
-        val DEFAULT_CONVERTER_FACTORY: Converter.Factory = GsonConverterFactory.create()
+        public val DEFAULT_CONVERTER_FACTORY: Converter.Factory = GsonConverterFactory.create()
     }
 
     private val builder = Retrofit.Builder()
@@ -48,7 +48,7 @@ class ApiBuilder {
      *
      * This is required to be set
      */
-    fun baseUrl(url: String) {
+    public fun baseUrl(url: String) {
         builder.baseUrl(url)
     }
 
@@ -59,7 +59,7 @@ class ApiBuilder {
      *
      * See [DEFAULT_CLIENT]
      */
-    fun client(block: OkHttpClient.Builder.() -> Unit) {
+    public fun client(block: OkHttpClient.Builder.() -> Unit) {
         client = OkHttpClient.Builder().apply(block).build()
     }
 
@@ -70,14 +70,14 @@ class ApiBuilder {
      *
      * See [DEFAULT_CALL_ADAPTER_FACTORY]
      */
-    fun callAdapterFactory(factory: CallAdapter.Factory) {
+    public fun callAdapterFactory(factory: CallAdapter.Factory) {
         callAdapterFactory = factory
     }
 
     /**
      * Sets the converter factory for response bodies
      */
-    fun converterFactory(factory: Converter.Factory) {
+    public fun converterFactory(factory: Converter.Factory) {
         converterFactory = factory
     }
 
@@ -88,7 +88,7 @@ class ApiBuilder {
      * * If [client] has not been configured, [DEFAULT_CLIENT] will be used
      * * If [converterFactory] has not been called, [DEFAULT_CONVERTER_FACTORY] will be used
      */
-    fun <T : ApiInterface> build(clazz: Class<T>): T {
+    public fun <T : ApiInterface> build(clazz: Class<T>): T {
         builder.client(client ?: DEFAULT_CLIENT)
         callAdapterFactory?.let {
             builder.addCallAdapterFactory(it)

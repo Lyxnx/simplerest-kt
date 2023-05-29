@@ -9,7 +9,7 @@ import net.lyxnx.simplerest.example.request.GetUserRequest
 import net.lyxnx.simplerest.example.request.PostUserRequest
 import net.lyxnx.simplerest.sendRequest
 
-class Example {
+internal class Example {
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 

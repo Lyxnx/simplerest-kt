@@ -8,7 +8,7 @@ import net.lyxnx.simplerest.SimpleRest
  * @param T type of data to be returned by the task
  * @param A the API to be used
  */
-abstract class ApiRequestTask<T : Any, A : ApiInterface> : RequestTask<T>() {
+public abstract class ApiRequestTask<T : Any, A : ApiInterface> : RequestTask<T>() {
 
     private val api = SimpleRest.api<A>()
 

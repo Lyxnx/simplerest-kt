@@ -3,7 +3,7 @@ package net.lyxnx.simplerest.example
 import net.lyxnx.simplerest.ApiProvider
 import net.lyxnx.simplerest.buildApi
 
-object ExampleApiProvider : ApiProvider<ExampleApiInterface> {
+internal object ExampleApiProvider : ApiProvider<ExampleApiInterface> {
 
     override fun build(): ExampleApiInterface {
         return buildApi {
