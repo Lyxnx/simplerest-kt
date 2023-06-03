@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.lyxnx"
-version = "2.1.4"
+version = "2.1.5"
 
 dependencies {
     api(common.retrofit)
