@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create("common") {
-            from(files("android-gradle-catalogs/versions-common/libs.versions.toml"))
+            from(files("gradle-catalogs/libs.versions.toml"))
         }
     }
 }
