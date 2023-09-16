@@ -8,23 +8,13 @@ becomes a simple request task.
 
 ## Usage
 
-#### Add the dependency
+### Add the dependency
 
-Kotlin DSL:
 ```kotlin
-repositories {
-    maven {
-        maven {
-            url = uri("https://maven.pkg.github.com/Lyxnx/simplerest-kt")
-            credentials {
-                username = project.property("gpr.username") as? String ?: System.getenv("USERNAME")
-                password = project.property("gpr.token") as? String ?: System.getenv("TOKEN")
-            }
-        }
-    }
+dependencies {
+    implementation("io.github.lyxnx:simplerest-kt:<version>")
 }
 ```
-where `gpr.username` is your GitHub username and `gpr.token` is a personal access token.
 
 The idea is to be simple to use but a few things need to be set up first.
 
@@ -36,13 +26,13 @@ You'll need the following:
 - An implementation of an [ApiInterface](src/main/kotlin/net/lyxnx/simplerest/ApiInterface.kt)
 - An implementation of an [ApiProvider](src/main/kotlin/net/lyxnx/simplerest/ApiProvider.kt)
 
-#### Create your models
+### Create your models
 
 ```kotlin
 data class User(val id: Int, val name: String, val age: Int)
 ```
 
-#### Create your retrofit interface as usual, but make it implement [ApiInterface](src/main/kotlin/net/lyxnx/simplerest/ApiInterface.kt)
+### Create your retrofit interface as usual, but make it implement [ApiInterface](src/main/kotlin/net/lyxnx/simplerest/ApiInterface.kt)
 
 ```kotlin
 interface ExampleApiInterface : ApiInterface {
@@ -54,8 +44,7 @@ interface ExampleApiInterface : ApiInterface {
 }
 ```
 
-#### Create the requests. In this case, a base request has been created to reduce the number of generic
-parameters the requests need to accept
+### Create the requests. In this case, a base request has been created to reduce the number of generic parameters the requests need to accept
 
 ```kotlin
 abstract class ExampleBaseRequest<T : Any> : ApiRequestTask<T, ExampleApiInterface>()
@@ -67,7 +56,7 @@ class GetUserRequest : ExampleBaseRequest<User>() {
 }
 ```
 
-#### Create a provider that provides the created ApiInterface
+### Create a provider that provides the created ApiInterface
 
 ```kotlin
 object ExampleApiProvider : ApiProvider<ExampleApiInterface> {
@@ -91,7 +80,8 @@ object ExampleApiProvider : ApiProvider<ExampleApiInterface> {
 }
 ```
 
-#### Finally, initialize the provider
+### Finally, initialize the provider
+
 within [SimpleRest](src/main/kotlin/net/lyxnx/simplerest/SimpleRest.kt)
 
 ```kotlin
