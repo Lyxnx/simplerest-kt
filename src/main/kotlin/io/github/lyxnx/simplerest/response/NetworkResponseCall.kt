@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest.response
+package io.github.lyxnx.simplerest.response
 
 import okhttp3.Request
 import okhttp3.ResponseBody
@@ -29,7 +29,11 @@ internal class NetworkResponseCall<R : Any, E : Any>(
                         try {
                             val errorBody = errorConverter.convert(error)
 
-                            if (errorBody != null) NetworkResponse.ApiError(response, code, errorBody)
+                            if (errorBody != null) NetworkResponse.ApiError(
+                                response,
+                                code,
+                                errorBody
+                            )
                             else NetworkResponse.UnknownError(response, null)
                         } catch (t: Throwable) {
                             NetworkResponse.UnknownError(response, t)

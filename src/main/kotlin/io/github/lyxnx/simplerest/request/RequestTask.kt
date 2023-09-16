@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest.request
+package io.github.lyxnx.simplerest.request
 
 /**
  * Represents a request task that might return some data

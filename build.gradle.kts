@@ -10,6 +10,8 @@ group = "io.github.lyxnx"
 version = "2.2.0"
 description = "Simple interface for retrofit"
 
+kotlin.explicitApi()
+
 dependencies {
     api(common.retrofit)
     api(common.retrofit.converter.gson)

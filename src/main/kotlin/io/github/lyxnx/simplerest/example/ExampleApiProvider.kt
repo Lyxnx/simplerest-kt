@@ -1,7 +1,7 @@
-package net.lyxnx.simplerest.example
+package io.github.lyxnx.simplerest.example
 
-import net.lyxnx.simplerest.ApiProvider
-import net.lyxnx.simplerest.buildApi
+import io.github.lyxnx.simplerest.ApiProvider
+import io.github.lyxnx.simplerest.buildApi
 
 internal object ExampleApiProvider : ApiProvider<ExampleApiInterface> {
 

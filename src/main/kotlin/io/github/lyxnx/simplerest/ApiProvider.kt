@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest
+package io.github.lyxnx.simplerest
 
 /**
  * Represents a provider of an [ApiInterface]

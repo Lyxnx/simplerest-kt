@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest
+package io.github.lyxnx.simplerest
 
 /**
  * Represents an API interface responsible for making API calls, whether through retrofit or another means

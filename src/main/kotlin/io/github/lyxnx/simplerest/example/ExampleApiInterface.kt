@@ -1,7 +1,7 @@
-package net.lyxnx.simplerest.example
+package io.github.lyxnx.simplerest.example
 
-import net.lyxnx.simplerest.ApiInterface
-import net.lyxnx.simplerest.example.model.User
+import io.github.lyxnx.simplerest.ApiInterface
+import io.github.lyxnx.simplerest.example.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

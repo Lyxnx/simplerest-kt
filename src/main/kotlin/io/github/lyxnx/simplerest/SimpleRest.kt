@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest
+package io.github.lyxnx.simplerest
 
 import kotlin.properties.Delegates
 
@@ -8,8 +8,8 @@ public object SimpleRest {
     private var api by Delegates.notNull<ApiInterface>()
 
     public fun <A : ApiInterface> init(provider: ApiProvider<A>) {
-        this.provider = provider
-        this.api = provider.build()
+        SimpleRest.provider = provider
+        api = provider.build()
     }
 
     public fun <A : ApiInterface> api(): A {

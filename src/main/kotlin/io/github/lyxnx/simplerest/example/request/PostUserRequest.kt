@@ -1,7 +1,7 @@
-package net.lyxnx.simplerest.example.request
+package io.github.lyxnx.simplerest.example.request
 
-import net.lyxnx.simplerest.example.ExampleApiInterface
-import net.lyxnx.simplerest.example.model.User
+import io.github.lyxnx.simplerest.example.ExampleApiInterface
+import io.github.lyxnx.simplerest.example.model.User
 
 internal class PostUserRequest(private val user: User) : ExampleBaseRequest<Unit>() {
 

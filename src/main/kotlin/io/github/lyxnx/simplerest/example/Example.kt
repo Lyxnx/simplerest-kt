@@ -1,13 +1,13 @@
-package net.lyxnx.simplerest.example
+package io.github.lyxnx.simplerest.example
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import net.lyxnx.simplerest.SimpleRest
-import net.lyxnx.simplerest.example.request.GetUserRequest
-import net.lyxnx.simplerest.example.request.PostUserRequest
-import net.lyxnx.simplerest.sendRequest
+import io.github.lyxnx.simplerest.SimpleRest
+import io.github.lyxnx.simplerest.example.request.GetUserRequest
+import io.github.lyxnx.simplerest.example.request.PostUserRequest
+import io.github.lyxnx.simplerest.sendRequest
 
 internal class Example {
 

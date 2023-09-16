@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest
+package io.github.lyxnx.simplerest
 
 public sealed class Response<out T> {
 

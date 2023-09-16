@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalContracts::class)
 
-package net.lyxnx.simplerest.response
+package io.github.lyxnx.simplerest.response
 
 import retrofit2.Response
 import java.io.IOException

@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest
+package io.github.lyxnx.simplerest
 
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter

@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest.response
+package io.github.lyxnx.simplerest.response
 
 import okhttp3.ResponseBody
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package net.lyxnx.simplerest.response
+package io.github.lyxnx.simplerest.response
 
 import retrofit2.Call
 import retrofit2.CallAdapter

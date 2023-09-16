@@ -1,7 +1,7 @@
-package net.lyxnx.simplerest.request
+package io.github.lyxnx.simplerest.request
 
-import net.lyxnx.simplerest.ApiInterface
-import net.lyxnx.simplerest.SimpleRest
+import io.github.lyxnx.simplerest.ApiInterface
+import io.github.lyxnx.simplerest.SimpleRest
 
 /**
  * Represents an API request task
