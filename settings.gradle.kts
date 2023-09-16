@@ -3,6 +3,7 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
+        mavenCentral()
     }
 }
 
@@ -12,8 +13,12 @@ dependencyResolutionManagement {
         mavenCentral()
     }
     versionCatalogs {
+        val catalogsVersion = "2023.09.16"
         create("common") {
-            from(files("gradle-catalogs/libs.versions.toml"))
+            from("io.github.lyxnx.gradle:versions-common:$catalogsVersion")
+        }
+        create("external") {
+            from("io.github.lyxnx.gradle:versions-external:$catalogsVersion")
         }
     }
 }
