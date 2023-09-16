@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.lyxnx"
-version = "2.2.0"
+version = "3.0.0"
 description = "Simple interface for retrofit"
 
 kotlin.explicitApi()
